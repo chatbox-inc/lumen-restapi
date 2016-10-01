@@ -8,7 +8,7 @@
     ],
     "autoload":{
         "psr-4":{
-            "Chatbox\\RestAPI\\":"./backend/app/src/"
+            "Chatbox\\RestAPI\\":"./src/"
         }
     },
     "require-dev": {
