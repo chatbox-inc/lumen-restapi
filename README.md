@@ -1,11 +1,8 @@
 # Lumen Application
 
-
-[![Total Downloads](https://poser.pugx.org/chatbox-inc/lumen-restapi/downloads)](https://packagist.org/packages/chatbox-inc/lumen-restapi)
 [![Latest Stable Version](https://poser.pugx.org/chatbox-inc/lumen-restapi/version)](https://packagist.org/packages/chatbox-inc/lumen-restapi)
 [![License](https://poser.pugx.org/chatbox-inc/lumen-restapi/license)](https://packagist.org/packages/chatbox-inc/lumen-restapi)
 [![composer.lock available](https://poser.pugx.org/chatbox-inc/lumen-restapi/composerlock)](https://packagist.org/packages/chatbox-inc/lumen-restapi)
-
 
 Rest API アプリケーション作成用のスケルトン
 
