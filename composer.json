@@ -1,0 +1,18 @@
+{
+    "name": "chatbox-inc/lumen-restapi",
+    "authors": [
+        {
+            "name": "mikakane",
+            "email": "mikakane2@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "Chatbox\\RestAPI\\":"./backend/app/src/"
+        }
+    },
+    "require-dev": {
+        "laravel/lumen": "^5.3",
+        "peridot-php/peridot": "^1.18"
+    }
+}
