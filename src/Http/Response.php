@@ -40,10 +40,11 @@ class Response
     }
 
     protected function parseException($e){
-        /** @var ErrorResponseInterface $eResponse */
         foreach ($this->errorResponse as $eResponse) {
+            /** @var ErrorResponseInterface $eResponse */
+            $eResponse = app($eResponse);
             foreach ($eResponse->supports() as $support){
-                if(is_subclass_of($e,$support)){
+                if(is_a($e,$support)){
                     if(env("APP_ENV") === "production"){
                         return $eResponse->production($e);
                     }else{
