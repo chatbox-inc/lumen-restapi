@@ -4,6 +4,7 @@ use Chatbox\RestAPI\Http\ErrorResponse\Exception as ErrorResponse;
 use Chatbox\RestAPI\Http\ErrorResponse\ValidationException;
 use Illuminate\Http\JsonResponse;
 use Chatbox\RestAPI\Http\ErrorResponse\ErrorResponseInterface;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class Response
 {
@@ -12,7 +13,7 @@ class Response
     ];
 
     public function make($status,array $body=[],array $header=[]){
-        return JsonResponse::create($body,$status,$header);
+        return IlluminateResponse::create($body,$status,$header);
     }
 
     protected function defaultHeader(){
@@ -36,6 +37,9 @@ class Response
 
     public function exception($e){
         $parsedException = $this->parseException($e);
+        if($parsedException instanceof \Illuminate\Http\Response){
+            $parsedException->withException($e);
+        }
         return $parsedException;
     }
 

@@ -24,6 +24,9 @@ class APIResponse
         $response = $next($request);
 
         if($response instanceof Response){
+            if($response->exception){
+                return $response;
+            }
             $content = $response->getOriginalContent();
             if(!is_array($content)){
                 return $response;
