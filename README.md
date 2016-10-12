@@ -19,6 +19,8 @@ $app->register(\Chatbox\RestAPI\RestAPIServiceProvider::class);
 
 ## 拡張
 
+全ての例外は一度HttpRequest で投げられるので、そこから処理してあげると楽だったり。
+
 ### Responseを操作する時
 
 \Chatbox\RestAPI\Http\Response を拡張する。
