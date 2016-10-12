@@ -21,6 +21,8 @@ $app->register(\Chatbox\RestAPI\RestAPIServiceProvider::class);
 
 全ての例外は一度HttpRequest で投げられるので、そこから処理してあげると楽だったり。
 
+400系エラー例外に向けて BadRequestHttpExceptionを追加
+
 ### Responseを操作する時
 
 \Chatbox\RestAPI\Http\Response を拡張する。
