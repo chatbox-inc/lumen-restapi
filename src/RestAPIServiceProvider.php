@@ -1,8 +1,8 @@
 <?php
 namespace Chatbox\RestAPI;
 use Chatbox\RestAPI\Http\Middleware\APIResponse;
+use Chatbox\RestAPI\Http\Middleware\BadRequestHttpExceptionHandler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Http\Response;
 use Illuminate\Support\ServiceProvider;
 use Chatbox\RestAPI\Exceptions\Handler;
 use Laravel\Lumen\Application;
@@ -23,5 +23,6 @@ class RestAPIServiceProvider extends ServiceProvider
         $app->singleton(ExceptionHandler::class,Handler::class);
 
         $app->middleware(APIResponse::class);
+        $app->middleware(BadRequestHttpExceptionHandler::class);
     }
 }
