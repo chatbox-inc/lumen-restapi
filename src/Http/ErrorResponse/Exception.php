@@ -6,7 +6,7 @@ namespace Chatbox\RestAPI\Http\ErrorResponse;
  * Date: 2016/10/01
  * Time: 16:27
  */
-class Exception implements ErrorResponseInterface
+class Exception
 {
     protected $response;
 

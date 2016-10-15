@@ -25,12 +25,15 @@ class APIResponseHandler
 
         if($response instanceof Response){
             if($response->exception){
-                return $this->response->exception($response->exception);
+                // when recieve response created at Exception handler
+                if(is_string($response->getOriginalContent())){
+                    return $this->response->exception($response->exception);
+                }
+            }else{
+                $content = $response->getOriginalContent();
+                return $this->response->ok($content);
             }
-            $content = $response->getOriginalContent();
-            return $this->response->ok($content);
         }
-
         return $response;
     }
 
