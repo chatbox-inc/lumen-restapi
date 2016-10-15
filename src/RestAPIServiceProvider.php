@@ -20,9 +20,8 @@ class RestAPIServiceProvider extends ServiceProvider
         /** @var Application $app */
         $app = $this->app;
 
-        $app->singleton(ExceptionHandler::class,Handler::class);
 
-        $app->middleware(APIResponse::class);
-        $app->middleware(BadRequestHttpExceptionHandler::class);
+//        $app->middleware(APIResponse::class);
+//        $app->middleware(BadRequestHttpExceptionHandler::class);
     }
 }

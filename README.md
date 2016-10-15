@@ -4,7 +4,9 @@
 [![License](https://poser.pugx.org/chatbox-inc/lumen-restapi/license)](https://packagist.org/packages/chatbox-inc/lumen-restapi)
 [![composer.lock available](https://poser.pugx.org/chatbox-inc/lumen-restapi/composerlock)](https://packagist.org/packages/chatbox-inc/lumen-restapi)
 
-Rest API アプリケーション作成用のスケルトン
+Rest API アプリケーション作成用のミドルウェア
+
+レスポンス生成の一元化とエラーハンドリングを担う。
 
 ## 機能
 
@@ -13,15 +15,43 @@ Rest API アプリケーション作成用のスケルトン
 
 ## Usage
 
+Exception Handler はデフォルトのものを使用する想定
+
 ````
-$app->register(\Chatbox\RestAPI\RestAPIServiceProvider::class);
+$app->singleton(\Illuminate\Contracts\Debug\ExceptionHandler::class,\App\Exceptions\Handler::class);
 ````
+
+対象のルートにミドルウェアを二枚かける
+
+ミドルウェアの設定順序には注意すること。
+
+````
+$app->group([
+    "middleware" => [
+        \Chatbox\RestAPI\Http\Middleware\HttpExceptionHandler::class,
+        \Chatbox\RestAPI\Http\Middleware\APIResponseHandler::class
+        ]
+],function($router){
+    $router->get("/api/status",function(){
+        return [];
+    });
+
+    $router->get("/api/missing",function(){
+        abort(404);
+    });
+
+    $router->get("/api/error",function(){
+        throw new \Exception();
+    });
+});
+````
+
 
 ## 拡張
 
-全ての例外は一度HttpRequest で投げられるので、そこから処理してあげると楽だったり。
+全ての例外は一度 HttpRequest で投げられるので、そこから処理してあげると楽だったり。
 
-400系エラー例外に向けて BadRequestHttpExceptionを追加
+400 系エラー例外はHttpExcepiton 継承で投げると特別処理がかかる。
 
 ### Responseを操作する時
 

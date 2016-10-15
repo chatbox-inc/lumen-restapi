@@ -9,7 +9,7 @@ use Chatbox\RestAPI\Http\Response as ResponseFactory;
  * Date: 2016/10/01
  * Time: 15:55
  */
-class APIResponse
+class APIResponseHandler
 {
     protected $response;
 
@@ -25,12 +25,9 @@ class APIResponse
 
         if($response instanceof Response){
             if($response->exception){
-                return $response;
+                return $this->response->exception($response->exception);
             }
             $content = $response->getOriginalContent();
-            if(!is_array($content)){
-                return $response;
-            }
             return $this->response->ok($content);
         }
 

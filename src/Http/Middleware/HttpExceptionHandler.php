@@ -2,7 +2,8 @@
 namespace Chatbox\RestAPI\Http\Middleware;
 use Illuminate\Http\Response;
 use Chatbox\RestAPI\Http\Response as ResponseFactory;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Created by PhpStorm.
@@ -10,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  * Date: 2016/10/01
  * Time: 15:55
  */
-class BadRequestHttpExceptionHandler
+class HttpExceptionHandler
 {
     protected $response;
 
@@ -25,12 +26,14 @@ class BadRequestHttpExceptionHandler
 
         if($response instanceof Response){
             $e = $response->exception;
-            if(
-                ($e instanceof BadRequestHttpException) &&
-                $response->getStatusCode() === 500
-            ){
+            if( $e instanceof HttpException){
+                if($e instanceof NotFoundHttpException){
+                    $message = "sorry, the requested uri does not found";
+                }else{
+                    $message = $e->getMessage() ?: "whoops, something wrong with you";
+                }
                 $response = $this->response->bad([
-                    "message" => $e->getMessage()
+                    "message" => $message
                 ])->withException($e);
             }
         }
